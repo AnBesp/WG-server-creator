@@ -8,12 +8,39 @@ This repository contains a script to create a WireGuard VPN server on a VPS usin
 - Ubuntu 22.04 LTS installed on your VPS.
 - Root or sudo privileges on the VPS.
 
-## Precheck - Default Interface
-Before installation, ensure that your VPS's default network interface is correctly identified. The script relies on this information for proper configuration. You can check the default interface using the following command:
+## Precheck - Default Interface and IP Forwarding
+Before installation, check the default network interface and enable IP forwarding for both IPv4 and IPv6.
+
+### Checking Default Interface
+Find your default network interface using:
 ```bash
 ip route | grep default
 ```
-Note the interface name, usually something like `eth0` or `ens3`.
+Note the interface name, typically `eth0`, `ens3`, etc.
+
+### Enabling IP Forwarding for IPv4 and IPv6
+IP forwarding is essential for routing VPN traffic. Enable it for both IPv4 and IPv6.
+
+#### IPv4
+Edit the sysctl configuration:
+```bash
+sudo nano /etc/sysctl.conf
+```
+Add or uncomment:
+```
+net.ipv4.ip_forward=1
+```
+
+#### IPv6
+In the same file, add or uncomment:
+```
+net.ipv6.conf.all.forwarding=1
+```
+
+Apply the changes:
+```bash
+sudo sysctl -p
+```
 
 ## Installation & Configuration
 

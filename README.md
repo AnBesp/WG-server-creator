@@ -3,6 +3,9 @@
 ## Introduction
 This repository contains a script to create a WireGuard VPN server on a VPS using OpenVZ/LXC with Ubuntu 22.04 LTS as the operating system. It utilizes `wireguard-go` and `wireguard-ui` to facilitate a user-friendly, secure VPN service.
 
+## Why `wireguard-go`?
+We use `wireguard-go` instead of the standard WireGuard kernel module because, on some OpenVZ/LXC servers, the necessary kernel module for WireGuard is not available. `wireguard-go` is a userspace implementation of WireGuard that bypasses this limitation, ensuring wider compatibility across various server environments.
+
 ## Prerequisites
 - A VPS with OpenVZ/LXC support.
 - Ubuntu 22.04 LTS installed on your VPS.
